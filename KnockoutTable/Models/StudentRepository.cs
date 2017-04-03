@@ -36,6 +36,15 @@ namespace KnockoutTable.Models
             student.Id = StudentList.Count + 1;
             StudentList.Add(student);
         }
+        
+        public static void EditStudent(Student model)
+        {
+            var student = StudentList.FirstOrDefault(x => x.Id == model.Id);
+            student.FirstName = model.FirstName;
+            student.LastName = model.LastName;
+            student.Gender = model.Gender;
+            student.Phone = model.Phone;
+        }
 
         public static void DeleteStudent(int studentId)
         {

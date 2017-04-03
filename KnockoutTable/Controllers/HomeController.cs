@@ -40,6 +40,12 @@ namespace KnockoutTable.Controllers
             return Json(student, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        public ActionResult EditStudent(Student student)
+        {
+            StudentRepository.EditStudent(student);
+            return Json("Сохранено");
+        }
+        [HttpPost]
         public ActionResult DeleteStudent(int Id)
         {
             StudentRepository.DeleteStudent(Id);

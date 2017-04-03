@@ -37,21 +37,15 @@
                 </span>
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
-    <tbody data-bind="foreach: currentPage">
-        <tr>
-            <td data-bind="text: Id"></td>
-            <td data-bind="text: FirstName"></td>
-            <td data-bind="text: LastName"></td>
-            <td data-bind="text: Gender"></td>
-            <td data-bind="text: Phone"></td>
-            <td><input type="button" class="btn btn-danger btn-xs" value="[x] удалить" data-bind="click: $parent.removeStudent" /></td>
-        </tr>
+    <tbody data-bind="template: { name: currentTemplate, foreach: currentPage }">
+        
     </tbody>
     <tfoot>
         <tr>
-            <td>
+            <td colspan="7">
                 Отобразить на странице:
                 <select id="pageSizeSelector" data-bind="value: pageSize">
                     <option value="5">5</option>
@@ -61,11 +55,11 @@
                     <option value="25">25</option>
                     <option value="30">30</option>
                 </select>
-            </td>
-            <td colspan="6">
-                <button data-bind="click: previousPage" class="btn btn-sm"><i class="glyphicon glyphicon-step-backward"></i></button>
-                Страница&nbsp;<label data-bind="text: currentPageIndex() + 1" class="badge"></label>
-                <button data-bind="click: nextPage" class="btn btn-sm"><i class="glyphicon glyphicon-step-forward"></i></button>
+                <span style="padding-left:20px;">
+                    <button data-bind="click: previousPage" class="btn btn-sm"><i class="glyphicon glyphicon-step-backward"></i></button>
+                    Страница&nbsp;<label data-bind="text: currentPageIndex() + 1" class="badge"></label>
+                    <button data-bind="click: nextPage" class="btn btn-sm"><i class="glyphicon glyphicon-step-forward"></i></button>
+                </span>
             </td>
         </tr>
     </tfoot>
@@ -73,3 +67,42 @@
 
 <br />
 <input type="button" class="btn btn-default" id="btnGetStudents" value="Обновить" data-bind="click: getStudents" />
+@*  Шаблон чтения *@
+<script type="text/html" id="readonlyTemplate">
+    <tr>
+        <td data-bind="text: Id"></td>
+        <td data-bind="text: FirstName"></td>
+        <td data-bind="text: LastName"></td>
+        <td data-bind="text: Gender"></td>
+        <td data-bind="text: Phone"></td>
+        <td><button type="button" class="btn btn-warning glyphicon glyphicon-pencil btn-sm" data-bind="click: $parent.editTemplate"></button></td>
+        <td><button type="button" class="btn btn-danger glyphicon glyphicon-trash btn-sm" data-bind="click: $parent.removeStudent"></button></td>
+    </tr>
+</script>
+@* Шаблон редактирования *@
+<script type="text/html" id="editTemplate">
+    <tr>
+        <td data-bind="text: $data.Id">
+            
+        </td>
+        <td>
+            <input type="text" data-bind="value: $data.FirstName" class="form-control"/>
+        </td>
+        <td>
+            <input type="text" data-bind="value: $data.LastName" class="form-control"/>
+        </td>
+        <td>
+            <input type="text" data-bind="value: $data.Gender" class="form-control"/>
+        </td>
+        <td>
+            <input type="text" data-bind="value: $data.Phone" class="form-control"/>
+        </td>
+        <td>
+            <button type="button" class="btn btn-success glyphicon glyphicon-ok btn-sm" data-bind="click: $parent.saveChanges"></button>
+        </td>
+        <td>
+        <button type="button" class="btn btn-danger glyphicon glyphicon-remove btn-sm" data-bind="click: $parent.resetTemplate"></button>
+        </td>
+    </tr>
+</script>
+

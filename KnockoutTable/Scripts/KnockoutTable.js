@@ -4,8 +4,6 @@ var viewModel = {
     paginationViewModel: new Pagination()
 };
 
-
-
 // Модель студентов
 function Student(id, firstName, lastName, gender, phone) {
     var self = this;
@@ -52,6 +50,19 @@ function Student(id, firstName, lastName, gender, phone) {
 function Pagination() {
     var self = this;
 
+    self.readonlyTemplate = ko.observable("readonlyTemplate");
+    self.editTemplate = ko.observable();
+
+    // Смена шаблона редактирования
+    self.currentTemplate = function (tmpl) {
+        return tmpl === self.editTemplate() ? 'editTemplate' : self.readonlyTemplate();
+    }.bind(viewModel);
+
+    // Сброс шаблона на обычный
+    self.resetTemplate = function (t) {
+        self.editTemplate("readonlyTemplate");
+    };
+
     // Отслеживание изменений в списке студентов
     self.students = ko.observableArray();
 
@@ -76,6 +87,30 @@ function Pagination() {
             contentType: 'application/json',
             success: function () {
                 self.students.remove(student);
+            }
+        });
+    };
+
+    // Редактирование студента
+    self.saveChanges = function (data) {
+
+        var student = {
+            Id: data.Id,
+            FirstName: data.FirstName,
+            LastName: data.LastName,
+            Gender: data.Gender,
+            Phone: data.Phone
+        };
+        
+        $.ajax({
+            url: '/home/EditStudent',
+            type: 'post',
+            data: student,
+            success: function (data) {
+                self.resetTemplate();
+            },
+            error: function (err) {
+                console.log(err);
             }
         });
     };
@@ -126,6 +161,7 @@ function Pagination() {
                 return leftVal > rightVal ? 1 : -1;
             }
         });
+        // Смена иконки
         self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
         self.iconType((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
