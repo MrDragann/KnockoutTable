@@ -1,11 +1,41 @@
-﻿<table class="table table-striped table-bordered table-condensed">
+﻿<style type="text/css">
+    .isVisible {
+        display: inline;
+    }
+
+    .isHidden {
+        display: none;
+    }
+</style>
+
+<table class="table table-striped table-bordered table-condensed">
     <thead>
-        <tr>
-            <th>ID</th>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Пол</th>
-            <th>Телефон</th>
+        <tr data-bind="click: sortTable">
+            <th data-column="Id">ID
+                <span data-bind="attr: { class: currentColumn() == 'Id' ? 'isVisible' : 'isHidden' }">
+                    <i data-bind="attr: { class: iconType }"></i>
+                </span>
+            </th>
+            <th data-column="FirstName">Имя
+                <span data-bind="attr: { class: currentColumn() == 'FirstName' ? 'isVisible' : 'isHidden' }">
+                    <i data-bind="attr: { class: iconType }"></i>
+                </span>
+            </th>
+            <th data-column="LastName">Фамилия
+                <span data-bind="attr: { class: currentColumn() == 'LastName' ? 'isVisible' : 'isHidden' }">
+                    <i data-bind="attr: { class: iconType }"></i>
+                </span>
+            </th>
+            <th data-column="Gender">Пол
+                <span data-bind="attr: { class: currentColumn() == 'Gender' ? 'isVisible' : 'isHidden' }">
+                    <i data-bind="attr: { class: iconType }"></i>
+                </span>
+            </th>
+            <th data-column="Phone">Телефон
+                <span data-bind="attr: { class: currentColumn() == 'Phone' ? 'isVisible' : 'isHidden' }">
+                    <i data-bind="attr: { class: iconType }"></i>
+                </span>
+            </th>
             <th></th>
         </tr>
     </thead>

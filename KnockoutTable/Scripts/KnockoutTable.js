@@ -36,7 +36,8 @@ function Student(id, firstName, lastName, gender, phone) {
             contentType: 'application/json',
             success: function (data) {
                 viewModel.paginationViewModel.students
-                    .push(new Student(data.Id, data.FirstName, data.LastName, data.Gender, data.Phone));
+                    .push(data);
+                    //.push(new Student(data.Id, data.FirstName, data.LastName, data.Gender, data.Phone));
 
                 self.Id(null);
                 self.FirstName('');
@@ -52,7 +53,7 @@ function Pagination() {
     var self = this;
 
     // Отслеживание изменений в списке студентов
-    self.students = ko.observableArray([]);
+    self.students = ko.observableArray();
 
     // Список студентов
     self.getStudents = function () {
@@ -60,16 +61,17 @@ function Pagination() {
 
         // Загрузка списка студентов с сервера
         $.getJSON('/home/GetStudents', function (data) {
-            $.each(data, function (key, value) {
-                self.students.push(new Student(value.Id, value.FirstName, value.LastName, value.Gender, value.Phone));
-            });
+            //$.each(data, function (key, value) {
+            //    self.students.push(new Student(value.Id, value.FirstName, value.LastName, value.Gender, value.Phone));
+            //});
+            self.students(data);
         });
     };
 
     // Удаление студента из списка
     self.removeStudent = function (student) {
         $.ajax({
-            url: '/home/DeleteStudent/' + student.Id(),
+            url: '/home/DeleteStudent/' + student["Id"],
             type: 'post',
             contentType: 'application/json',
             success: function () {
@@ -78,6 +80,7 @@ function Pagination() {
         });
     };
 
+    // Пагинация
     self.currentPage = ko.observable();
     self.pageSize = ko.observable(5);
     self.currentPageIndex = ko.observable(0);
@@ -103,6 +106,28 @@ function Pagination() {
         else {
             self.currentPageIndex((Math.ceil(self.students().length / self.pageSize())) - 1);
         }
+    };
+
+    // Сортировка
+    self.sortType = "ascending";
+    self.currentColumn = ko.observable("");
+    self.iconType = ko.observable("");
+
+    self.sortTable = function (students, e) {
+        var orderProp = $(e.target).attr("data-column")
+        self.currentColumn(orderProp);
+        self.students.sort(function (left, right) {
+            leftVal = left[orderProp];
+            rightVal = right[orderProp];
+            if (self.sortType == "ascending") {
+                return leftVal < rightVal ? 1 : -1;
+            }
+            else {
+                return leftVal > rightVal ? 1 : -1;
+            }
+        });
+        self.sortType = (self.sortType == "ascending") ? "descending" : "ascending";
+        self.iconType((self.sortType == "ascending") ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down");
     };
 }
 

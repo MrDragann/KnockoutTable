@@ -10,20 +10,20 @@ namespace KnockoutTable.Models
         public static List<Student> StudentList = new List<Student>()
         {
             new Student() { Id=1,FirstName="Andrew",LastName="Andrew",Gender="Male",Phone="12345" },
-            new Student() { Id=2,FirstName="Robert",LastName="Robert",Gender="Male",Phone="34567" },
-            new Student() { Id=3,FirstName="Peter",LastName="Peter",Gender="Male",Phone="45678" },
+            new Student() { Id=2,FirstName="Robert",LastName="Robert",Gender="Female",Phone="34567" },
+            new Student() { Id=3,FirstName="Peter",LastName="Peter",Gender="Other",Phone="45678" },
             new Student() { Id=4,FirstName="Andrew",LastName="Andrew",Gender="Male",Phone="12345" },
-            new Student() { Id=5,FirstName="Robert",LastName="Robert",Gender="Male",Phone="34567" },
-            new Student() { Id=6,FirstName="Peter",LastName="Peter",Gender="Male",Phone="45678" },
+            new Student() { Id=5,FirstName="Robert",LastName="Robert",Gender="Female",Phone="34567" },
+            new Student() { Id=6,FirstName="Peter",LastName="Peter",Gender="Other",Phone="45678" },
             new Student() { Id=7,FirstName="Andrew",LastName="Andrew",Gender="Male",Phone="12345" },
-            new Student() { Id=8,FirstName="Robert",LastName="Robert",Gender="Male",Phone="34567" },
-            new Student() { Id=9,FirstName="Peter",LastName="Peter",Gender="Male",Phone="45678" },
+            new Student() { Id=8,FirstName="Robert",LastName="Robert",Gender="Female",Phone="34567" },
+            new Student() { Id=9,FirstName="Peter",LastName="Peter",Gender="Other",Phone="45678" },
             new Student() { Id=10,FirstName="Andrew",LastName="Andrew",Gender="Male",Phone="12345" },
-            new Student() { Id=11,FirstName="Robert",LastName="Robert",Gender="Male",Phone="34567" },
-            new Student() { Id=12,FirstName="Peter",LastName="Peter",Gender="Male",Phone="45678" },
+            new Student() { Id=11,FirstName="Robert",LastName="Robert",Gender="Female",Phone="34567" },
+            new Student() { Id=12,FirstName="Peter",LastName="Peter",Gender="Other",Phone="45678" },
             new Student() { Id=13,FirstName="Andrew",LastName="Andrew",Gender="Male",Phone="12345" },
-            new Student() { Id=14,FirstName="Robert",LastName="Robert",Gender="Male",Phone="34567" },
-            new Student() { Id=15,FirstName="Peter",LastName="Peter",Gender="Male",Phone="45678" }
+            new Student() { Id=14,FirstName="Robert",LastName="Robert",Gender="Female",Phone="34567" },
+            new Student() { Id=15,FirstName="Peter",LastName="Peter",Gender="Other",Phone="45678" }
         };
 
         public static List<Student> GetStudents()
